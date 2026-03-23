@@ -1,0 +1,17 @@
+{
+	"name": "create viwes gold2",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW gold.calendar\nAS\nSELECT *\nFROM OPENROWSET(\n    BULK 'https://awstorageabhi.dfs.core.windows.net/silver/AdventureWorks_Calendar/*.parquet',\n    FORMAT = 'PARQUET'\n) AS query1;\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awdatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

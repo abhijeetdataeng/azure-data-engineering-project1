@@ -1,0 +1,17 @@
+{
+	"name": "Create External Table",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE SCOPED CREDENTIAL cred_awstorageabhi\nWITH IDENTITY = 'Managed Identit\n\n\nCREATE EXTERNAL DATA SOURCE silver_data_source\nWITH (\n    LOCATION = 'https://awstorageabhi.dfs.core.windows.net/silver',\n    CREDENTIAL = cred_awstorageabhi\n);\n\n\nCREATE EXTERNAL DATA SOURCE gold_data_source\nWITH (\n    LOCATION = 'https://awstorageabhi.dfs.core.windows.net/gold',\n    CREDENTIAL = cred_awstorageabhi\n);\n\nCREATE EXTERNAL FILE FORMAT format_parquet\nWITH (\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n);\n\n\n\n\n\n\n\nCREATE EXTERNAL TABLE gold.EXTsales\nWITH (\n    LOCATION = 'EXTsales',\n    DATA_SOURCE = gold_data_source,\n    FILE_FORMAT = format_parquet\n)\nAS\nSELECT *\nFROM gold.Sales;\n\n\n\n\n\nselect * from gold.EXTsales;\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "awdatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
